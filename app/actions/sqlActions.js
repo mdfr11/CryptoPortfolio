@@ -15,7 +15,7 @@ export const GetTransactions = (id) => async dispatch => {
   try {
     db.transaction(tx => {
       tx.executeSql(
-        `select name, price, sum(amount) as amount from transactions where portfolioId = ? group by name`,
+        `select id, name, avg(price) as price, sum(amount) as amount from transactions where portfolioId = ? group by name`,
         [id],
         (_, results) => {
           var len = results.rows.length;

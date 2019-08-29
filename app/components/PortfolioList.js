@@ -1,14 +1,15 @@
 import React, { Component } from "react";
 import { StyleSheet, Text, View, FlatList, Picker } from "react-native";
 import { connect } from "react-redux";
-import { GetPortfolios } from "../actions/";
-import { CreateTable } from "../actions/";
+import { GetPortfolios } from "../actions";
+import { CreateTable } from "../actions";
 import { SQLite } from "expo-sqlite";
 import store from "../store/store";
+import { getStatusBarHeight } from 'react-native-status-bar-height';
 
 const db = SQLite.openDatabase("db.db");
 
-class PortfolioItems extends Component {
+class PortfolioList extends Component {
   state = {
     items: null,
     portfolioId: ''
@@ -20,10 +21,12 @@ class PortfolioItems extends Component {
   render() {
     const { PortfolioReducer, navigation } = this.props;
     return (
-      <View style={{marginTop: 50, marginLeft: 50}}>
+      <View style={{flexDirection: "row",
+      justifyContent: "center",
+      alignItems: "center", marginTop: getStatusBarHeight()}}>
         <Picker
+          style={dropdown}
           selectedValue={this.state.portfolioId}
-          style={{ height: 50, width: 200, color: 'white' }}
           onValueChange={(itemValue, itemIndex) =>
             {this.setState({ portfolioId: itemValue })
             store.dispatch(GetPortfolios(itemValue));}
@@ -43,10 +46,17 @@ const styles = StyleSheet.create({
     color: "#787878",
     padding: 8,
     fontSize: 15
+  },
+  dropdown: {
+    height: 50,
+    width: 100,
+    backgroundColor: "rgba(255, 0, 0, 0)",
+    color: "#D3BD83",
+    fontSize: 13
   }
 });
 
-const { text } = styles;
+const { text, dropdown } = styles;
 
 const mapStateToProps = state => ({
     PortfolioReducer: state.PortfolioReducer
@@ -55,4 +65,4 @@ const mapStateToProps = state => ({
 export default connect(
   mapStateToProps,
   { GetPortfolios, CreateTable }
-)(PortfolioItems);
+)(PortfolioList);

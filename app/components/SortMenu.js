@@ -5,6 +5,7 @@ import { sortCoins } from "../actions/";
 import { connect } from "react-redux";
 import store from "../store/store";
 import AntDesign from "react-native-vector-icons/AntDesign";
+import { getStatusBarHeight } from 'react-native-status-bar-height';
 
 sortType = (type, option) => {
   switch (type) {
@@ -26,7 +27,7 @@ const SortMenu = ({ sort }) => {
     <View
       style={{
         flexDirection: "row",
-        marginTop: 50,
+        marginTop: getStatusBarHeight(),
         justifyContent: "space-around"
       }}
     >

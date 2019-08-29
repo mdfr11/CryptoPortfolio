@@ -1,28 +1,18 @@
-import React, { PureComponent } from "react";
-import { connect } from "react-redux";
-import { CoinDataHistorical } from "../actions/";
+import React, { Component } from "react";
 import { StyleSheet, Text, View } from "react-native";
 
-class CryptoItem extends PureComponent {
+class PortfolioItem extends Component {
   render() {
     const { item } = this.props;
     return (
       <View style={container}>
-        <Text style={text}>{item.rank}</Text>
         <View style={containerTwo}>
           <Text style={textYellow}>{item.name}</Text>
-          <View style={{flex: 1, flexDirection: "row",}}>
-          <Text style={text}>{item.symbol}</Text>
-          <Text
-            style={
-              item.quotes.USD.percent_change_24h > 0 ? percentUp : percentDown
-            }
-          >
-            {item.quotes.USD.percent_change_24h}%
-          </Text>
+          <View style={{ flex: 1, flexDirection: "row" }}>
+            <Text style={text}>Amount {item.amount}</Text>
           </View>
         </View>
-        <Text style={textYellow}>{item.quotes.USD.price}</Text>
+        <Text style={textYellow}>${item.price} (avg)</Text>
       </View>
     );
   }
@@ -30,7 +20,7 @@ class CryptoItem extends PureComponent {
 
 const styles = StyleSheet.create({
   text: {
-    color: "#787878",
+    color: "#787878"
   },
   container: {
     flexDirection: "row",
@@ -39,7 +29,7 @@ const styles = StyleSheet.create({
     padding: 15,
     backgroundColor: "#1E2223",
     margin: 5,
-    borderRadius: 5,
+    borderRadius: 5
   },
   containerTwo: {
     flex: 1,
@@ -48,7 +38,7 @@ const styles = StyleSheet.create({
   },
   containerChart: {
     flex: 1,
-    alignItems: 'center'
+    alignItems: "center"
   },
   percentUp: {
     color: "#2DB091",
@@ -73,4 +63,4 @@ const {
   containerChart
 } = styles;
 
-export default CryptoItem;
+export default PortfolioItem;

@@ -10,7 +10,7 @@ import TransactionsCont from "../containers/TransactionsCont";
 import PortfolioCont from "../containers/Portfolio";
 import CoinDetailsScreen from "../components/CoinDetailsScreen";
 import SortMenu from '../components/SortMenu';
-import PortfolioItems from '../components/PortfolioItems';
+import PortfolioList from '../components/PortfolioList';
 import AddNewData from '../components/AddNewDataScreen';
 
 const TransactionsIcon = ({ tintColor }) => (
@@ -95,7 +95,7 @@ const Portfolio = createStackNavigator(
         headerTitleStyle: {
           color: "#D3BD83"
         },
-        headerBackground: <PortfolioItems/>,
+        headerBackground: <PortfolioList/>,
       }),
     },
     AddNewData: {
