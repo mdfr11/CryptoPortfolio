@@ -17,6 +17,7 @@ class PortfolioCont extends Component {
     items: null
   };
   componentDidMount() {
+    this.props.GetTransactions(this.props.PortfolioReducer.portfolio)
     this.props.CreateTable();
   }
   componentDidUpdate(prevProps) {
@@ -29,7 +30,6 @@ class PortfolioCont extends Component {
   }
   render() {
     const { SqlReducer, navigation, PortfolioReducer } = this.props;
-    console.log("xcasdas " + JSON.stringify(SqlReducer));
     const data = [
       50,
       10,

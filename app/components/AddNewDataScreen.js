@@ -6,12 +6,12 @@ import {
   TouchableOpacity,
   ScrollView
 } from "react-native";
-import { connect } from "react-redux";
-import { FetchDbData } from "../actions/";
-import Loading from "../components/Loading";
 import { SQLite } from "expo-sqlite";
-import { Input, Button, SearchBar } from "react-native-elements";
-import filter from "lodash/filter";
+import { SearchBar, Input, Button } from "react-native-elements";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp
+} from "react-native-responsive-screen";
 
 const db = SQLite.openDatabase("db.db");
 
@@ -25,77 +25,49 @@ class AddNewData extends Component {
     namePortfolio: ""
   };
 
-  updateSearch = search => {
-    this.setState({ search });
-  };
-
-  filterCoins = () => {
-    const { crypto, navigation } = this.props;
-    const searchCoin = filter(
-      crypto,
-      o =>
-        o.name.toLowerCase().indexOf(this.state.search.toLowerCase()) >= 0 ||
-        o.symbol.toLowerCase().indexOf(this.state.search.toLowerCase()) >= 0
-    );
-    const find = (coin, key) => {
-      return (
+  render() {
+    const { navigation } = this.props;
+    return (
+      <View
+        style={{
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+          backgroundColor: "#1E2223",
+          height: hp("100%")
+        }}
+      >
+        <Text
+          style={{
+            color: "#D3BD83",
+            fontWeight: "bold",
+            fontSize: 17,
+            padding: 15
+          }}
+        >
+          Add a manual transaction by searching for a coin
+        </Text>
         <TouchableOpacity
-          key={key}
           onPress={() =>
-            navigation.navigate("AddTransaction", {
-              id: key,
-              coin: coin.symbol,
-              idCoin: coin.id,
-              nameCoin: coin.name,
+            navigation.navigate("SearchCoin", {
               namePortfolio: this.props.navigation.state.params.namePortfolio
             })
           }
         >
-          <View style={{ flexDirection: "row", padding: 15 }} key={key}>
-            <Text style={{ color: "white" }}>{coin.name} </Text>
-            <Text style={{ color: "white" }}>{coin.symbol}</Text>
+          <View pointerEvents="none">
+            <SearchBar
+              placeholder="Search coin"
+              onChangeText={this.updateSearch}
+              value={this.state.search}
+              containerStyle={{
+                backgroundColor: "rgba(0, 0, 0, 0);",
+                width: wp('70%'),
+                borderTopWidth: 0,
+                borderBottomWidth: 0
+              }}
+            ></SearchBar>
           </View>
         </TouchableOpacity>
-      );
-    };
-    const empty = () => {
-      return (
-        <View
-          style={{
-            flexDirection: "column",
-            justifyContent: "center",
-            alignItems: "center"
-          }}
-        >
-          <Text style={{ color: "white" }}></Text>
-        </View>
-      );
-    };
-    return (
-      <ScrollView style={{ height: 300 }}>
-        {this.state.search.length != 0
-          ? searchCoin.map((coin, key) => find(coin, key))
-          : empty()}
-      </ScrollView>
-    );
-  };
-
-  componentDidUpdate(prevProps, prevState) {
-    if (this.state.search !== prevState.search) {
-      this.filterCoins();
-    }
-  }
-
-  render() {
-    return (
-      <View>
-        <SearchBar
-          placeholder="Search coin"
-          onChangeText={this.updateSearch}
-          value={this.state.search}
-          containerStyle={{backgroundColor: '#1E2223'}}
-        />
-        <View>{this.filterCoins()}</View>
         <View>
           <Text style={{ color: "white" }}>Add portfolio</Text>
           <Input
@@ -130,11 +102,4 @@ const styles = StyleSheet.create({
 
 const { text } = styles;
 
-const mapStateToProps = state => ({
-  crypto: state.crypto.data
-});
-
-export default connect(
-  mapStateToProps,
-  { FetchDbData }
-)(AddNewData);
+export default AddNewData;

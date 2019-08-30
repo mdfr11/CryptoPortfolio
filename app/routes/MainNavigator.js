@@ -13,6 +13,7 @@ import SortMenu from "../components/SortMenu";
 import PortfolioList from "../components/PortfolioList";
 import AddNewData from "../components/AddNewDataScreen";
 import AddTransaction from "../components/AddTransaction";
+import SearchCoin from "../components/SearchCoin";
 
 const TransactionsIcon = ({ tintColor }) => (
   <AntDesign name="linechart" size={25} color={tintColor} />
@@ -108,7 +109,6 @@ const Portfolio = createStackNavigator(
           color: "#D3BD83"
         },
         headerTintColor: "#D3BD83",
-        title: `test`
       })
     },
     AddTransaction: {
@@ -123,6 +123,21 @@ const Portfolio = createStackNavigator(
         },
         headerTintColor: "#D3BD83",
         title: `${navigation.state.params.nameCoin}`
+      })
+    },
+    SearchCoin: {
+      screen: SearchCoin,
+      navigationOptions: ({ navigation }) => ({
+        header: null,
+        headerStyle: {
+          backgroundColor: "#1E2223",
+          elevation: 0
+        },
+        headerTitleStyle: {
+          color: "#D3BD83"
+        },
+        headerTintColor: "#D3BD83",
+        title: null,
       })
     }
   },

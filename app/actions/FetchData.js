@@ -24,7 +24,7 @@ export const FetchCoinData = () => async (dispatch) => {
 export const CoinDataHistorical = (time) => async (dispatch) => {
   dispatch({ type: COIN_DATA_HISTORICAL });
   try {
-    const result = await axios.get("https://api.coinpaprika.com/v1/tickers/"+ time.coin +"/historical?start="+ time.start +"&end="+ time.end +"&interval="+ time.interval);
+    const result = await axios.get(`https://api.coinpaprika.com/v1/tickers/${time.coin}/historical?start=${time.start}&end=${time.end}&interval=${time.interval}`);
     dispatch({ type: COIN_DATA_HISTORICAL_SUCCESS, payload: result.data });
   } catch (error) {
     dispatch({ type: COIN_DATA_HISTORICAL_FAIL, payload: error });
