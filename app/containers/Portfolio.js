@@ -51,40 +51,50 @@ class PortfolioCont extends Component {
       return <Loading />;
     }
     return (
-      <View>
-        <View
-          style={{ flexDirection: "column", alignItems: "center", padding: 10 }}
-        >
-          <Text style={{ color: "white" }}>234324$</Text>
-          <Text style={{ color: "white" }}>2.4%</Text>
+      <ScrollView>
+        <View>
+          <View
+            style={{
+              flexDirection: "column",
+              alignItems: "center",
+              padding: 10
+            }}
+          >
+            <Text style={{ color: "white" }}>234324$</Text>
+            <Text style={{ color: "white" }}>2.4%</Text>
+          </View>
+          <View style={{ flexDirection: "row", justifyContent: "center" }}>
+            <Button title="1h" type="clear" titleStyle={{ color: "#D3BD83" }} />
+            <Button
+              title="24h"
+              type="clear"
+              titleStyle={{ color: "#D3BD83" }}
+            />
+            <Button title="1w" type="clear" titleStyle={{ color: "#D3BD83" }} />
+          </View>
+          <LineChart
+            style={{ height: 200 }}
+            data={data}
+            svg={{ stroke: "#D3BD83" }}
+            contentInset={{ top: 20, bottom: 20 }}
+          />
+          <Button
+            buttonStyle={{ padding: 0 }}
+            onPress={() =>
+              navigation.navigate("AddNewData", {
+                namePortfolio: this.props.PortfolioReducer.portfolio
+              })
+            }
+            icon={<AntDesign name="pluscircleo" size={40} color="#D3BD83" />}
+            type="clear"
+          />
+          <FlatList
+            data={SqlReducer.data}
+            keyExtractor={(item, id) => id.toString()}
+            renderItem={({ item }) => <PortfolioItem item={item} />}
+          />
         </View>
-        <View style={{ flexDirection: "row", justifyContent: "center" }}>
-          <Button title="1h" type="clear" titleStyle={{ color: "#D3BD83" }} />
-          <Button title="24h" type="clear" titleStyle={{ color: "#D3BD83" }} />
-          <Button title="1w" type="clear" titleStyle={{ color: "#D3BD83" }} />
-        </View>
-        <LineChart
-          style={{ height: 200 }}
-          data={data}
-          svg={{ stroke: "#D3BD83" }}
-          contentInset={{ top: 20, bottom: 20 }}
-        />
-        <Button
-          buttonStyle={{ padding: 0 }}
-          onPress={() =>
-            navigation.navigate("AddNewData", {
-              namePortfolio: this.props.PortfolioReducer.portfolio
-            })
-          }
-          icon={<AntDesign name="pluscircleo" size={40} color="#D3BD83" />}
-          type="clear"
-        />
-        <FlatList
-          data={SqlReducer.data}
-          keyExtractor={(item, id) => id.toString()}
-          renderItem={({ item }) => <PortfolioItem item={item} />}
-        />
-      </View>
+      </ScrollView>
     );
   }
 }

@@ -9,9 +9,10 @@ import GlobalInfo from "../containers/GlobalInfo";
 import TransactionsCont from "../containers/TransactionsCont";
 import PortfolioCont from "../containers/Portfolio";
 import CoinDetailsScreen from "../components/CoinDetailsScreen";
-import SortMenu from '../components/SortMenu';
-import PortfolioList from '../components/PortfolioList';
-import AddNewData from '../components/AddNewDataScreen';
+import SortMenu from "../components/SortMenu";
+import PortfolioList from "../components/PortfolioList";
+import AddNewData from "../components/AddNewDataScreen";
+import AddTransaction from "../components/AddTransaction";
 
 const TransactionsIcon = ({ tintColor }) => (
   <AntDesign name="linechart" size={25} color={tintColor} />
@@ -37,24 +38,22 @@ const Transactions = createStackNavigator(
           color: "#D3BD83"
         },
         title: null,
-        headerBackground: (
-            <SortMenu />
-        ),
-      }),
+        headerBackground: <SortMenu />
+      })
     },
     CoinDetailsScreen: {
       screen: CoinDetailsScreen,
-      navigationOptions: ( { navigation } ) => ({
+      navigationOptions: ({ navigation }) => ({
         headerStyle: {
           backgroundColor: "#1E2223",
-          elevation: 0,
+          elevation: 0
         },
         headerTitleStyle: {
-          color: "#D3BD83",
+          color: "#D3BD83"
         },
-        headerTintColor: '#D3BD83',
+        headerTintColor: "#D3BD83",
         title: `${navigation.state.params.item.name}`
-      }),
+      })
     }
   },
   {
@@ -74,8 +73,8 @@ const Global = createStackNavigator(
         headerTitleStyle: {
           color: "#D3BD83"
         },
-        title: 'Global data',
-      }),
+        title: "Global data"
+      })
     }
   },
   {
@@ -95,22 +94,36 @@ const Portfolio = createStackNavigator(
         headerTitleStyle: {
           color: "#D3BD83"
         },
-        headerBackground: <PortfolioList/>,
-      }),
+        headerBackground: <PortfolioList />
+      })
     },
     AddNewData: {
       screen: AddNewData,
-      navigationOptions: ( { navigation } ) => ({
+      navigationOptions: ({ navigation }) => ({
         headerStyle: {
           backgroundColor: "#1E2223",
-          elevation: 0,
+          elevation: 0
         },
         headerTitleStyle: {
-          color: "#D3BD83",
+          color: "#D3BD83"
         },
-        headerTintColor: '#D3BD83',
+        headerTintColor: "#D3BD83",
         title: `test`
-      }),
+      })
+    },
+    AddTransaction: {
+      screen: AddTransaction,
+      navigationOptions: ({ navigation }) => ({
+        headerStyle: {
+          backgroundColor: "#1E2223",
+          elevation: 0
+        },
+        headerTitleStyle: {
+          color: "#D3BD83"
+        },
+        headerTintColor: "#D3BD83",
+        title: `${navigation.state.params.nameCoin}`
+      })
     }
   },
   {
